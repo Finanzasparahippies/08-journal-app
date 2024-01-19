@@ -1,18 +1,33 @@
+import { useDispatch, useSelector } from "react-redux"
 import { IconButton, Typography } from "@mui/material"
 import { JournalLayout } from "../layout/JournalLayout"
 import { NothingSelectedView, NoteView } from "../views"
 import { AddOutlined } from "@mui/icons-material"
+import { startNewNote } from "../../store/journal/thunks"
 
 
 
 export const JournalPage = () => {
+
+  const dispatch = useDispatch();
+  const { isSaving, active } = useSelector ( state => state.journal);
+
+  const onClickNewNote = () => {
+    dispatch (startNewNote() );
+  }
+
   return (
     <JournalLayout>
-    {/* <Typography> Ut deserunt sint ut aliquip ad nostrud eu tempor dolor adipisicing sint do mollit.</Typography> */}
-      <NothingSelectedView/>
-    {/* <NoteView/> */}
+
+    {
+      (!!active)
+      ? <NoteView/>
+      : <NothingSelectedView/>
+    }
 
     <IconButton
+        disabled = { isSaving }
+        onClick={onClickNewNote}
         size='large'
         sx={{
           color: 'white',
