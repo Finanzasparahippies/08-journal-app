@@ -1,14 +1,14 @@
 import { useEffect, useMemo, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux"; 
 
-import { SaveOutlined, UploadOutlined } from "@mui/icons-material"
+import { DeleteOutline, SaveOutlined, UploadOutlined } from "@mui/icons-material"
 import { Button, Grid, IconButton, TextField, Typography } from "@mui/material"
 import Swal from "sweetalert2";
 import 'sweetalert2/dist/sweetalert2.css'
 
 import { ImageGallery } from "../components"
 import { useForm } from "../../hooks/useForm";
-import { setActiveNote, startSavingNote, startUploadingFiles } from "../../store/journal";
+import { startDeletingNote, setActiveNote, startSavingNote, startUploadingFiles } from "../../store/journal";
 
 
 
@@ -39,10 +39,16 @@ export const NoteView = () => {
 
     const fileInputRef = useRef( )
 
+    const onDelete = () => {
+        dispatch( startDeletingNote() );
+    }
+
     useEffect(() => {
         dispatch(setActiveNote( formState ))
 
-    }, [formState])
+    }, [formState]);
+
+    
 
     useEffect(() => {
         if ( messageSaved.length > 0 ) {
@@ -110,6 +116,17 @@ export const NoteView = () => {
                     value={body}
                     onChange={onInputChange}
                 />
+            </Grid>
+
+            <Grid container justifyContent='end'>
+                <Button
+                    onClick={ onDelete }
+                    sx= {{ mt: 2 }}
+                    color= "error"
+                >
+                    <DeleteOutline/>
+                    Borrar 
+                </Button>
             </Grid>
 
             {/* Galeria de Imagenes */}

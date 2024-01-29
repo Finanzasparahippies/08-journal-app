@@ -5,7 +5,7 @@ import { Google } from "@mui/icons-material"
 import { Alert, Button, Grid, Link, TextField, Typography } from "@mui/material"
 import { AuthLayout } from '../layout/AuthLayout';
 import { useForm } from '../../hooks';
-import { startGoogleLogin, startLoginWithEnailPassword } from '../../store/auth';
+import { startGoogleLogin, startLoginWithEmailPassword } from '../../store/auth';
 
 const formData = {
   email: '',
@@ -26,7 +26,7 @@ export const LoginPage = () => {
     event.preventDefault();
 
     console.log({email, password});
-    dispatch( startLoginWithEnailPassword( { email, password}) );
+    dispatch( startLoginWithEmailPassword( { email, password}) );
   }
 
   const onGoogleLogin = () => {
